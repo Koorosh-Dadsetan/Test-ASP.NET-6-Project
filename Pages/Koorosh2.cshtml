@@ -1,0 +1,51 @@
+﻿@page
+@model Test_Project.Pages.Koorosh2Model
+@{
+    ViewData["Title"] = "Koorosh2";
+
+    DataTable dataTable = new DataTable();
+
+
+    string connectionString =
+            "Data Source=DESKTOP-90OC7A4\\SQLEXPRESS;Initial Catalog=Test_db;Integrated Security=true";
+
+    string queryString =
+        "SELECT [id] ,[FullName] ,[Phone] FROM [Test_db].[dbo].[Contacts]";
+
+
+    using (SqlConnection connection =
+        new SqlConnection(connectionString))
+    {
+        SqlCommand command = new SqlCommand(queryString, connection);
+
+        try
+        {
+            connection.Open();
+            SqlDataReader reader = command.ExecuteReader();
+
+            dataTable.Load(reader);
+
+            reader.Close();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
+    }
+}
+
+<h1>This is Koorosh2 Page.</h1>
+<br />
+@{
+    if(dataTable.Rows.Count>0)
+    {
+         foreach(DataRow row in dataTable.Rows)
+         {
+             <h1>@row["id"] @row["fullname"] @row["phone"]</h1>
+             <br />
+         }
+    }else
+    {
+        <h1>!متاسفانه داده ای جهت نمایش یافت نشد</h1>
+    }
+}
