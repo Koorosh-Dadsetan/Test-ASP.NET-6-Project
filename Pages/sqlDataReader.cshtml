@@ -32,25 +32,23 @@
             throw new Exception(ex.Message);
         }
     }
-}
 
-<h1>This is Koorosh2 Page.</h1>
-<br />
-@{
+    <h1>This is Koorosh2 Page.</h1>
+    <br />
+
     if(dataTable.Rows.Count>0)
     {
          foreach(DataRow row in dataTable.Rows)
          {
-             <h1>@row["id"] @row["fullname"] @row["phone"]</h1>
-             <br />
+    <h1>@row["id"] @row["fullname"] @row["phone"]</h1>
+    <br />
          }
     }else
     {
-        <h1>!متاسفانه داده ای جهت نمایش یافت نشد</h1>
+    <h1>!متاسفانه داده ای جهت نمایش یافت نشد</h1>
     }
 
     myClass klm = new myClass();
-}
 
    <h1>@klm.jkhjk</h1>
-
+}
