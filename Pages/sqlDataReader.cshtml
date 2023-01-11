@@ -10,7 +10,7 @@
             "Data Source=DESKTOP-90OC7A4\\SQLEXPRESS;Initial Catalog=Test_db;Integrated Security=true";
 
     string queryString =
-        "SELECT [id] ,[FullName] ,[Phone] FROM [Test_db].[dbo].[Contacts]";
+        "SELECT [id] ,[FullName] ,[Mobile] ,[Age] ,[Address] FROM [Test_db].[dbo].[Employees]";
 
 
     using (SqlConnection connection =
@@ -33,22 +33,39 @@
         }
     }
 
-    <h1>This is Koorosh2 Page.</h1>
+    <h1 style="text-align:center">صفحه تست SqlDataReader</h1>
     <br />
 
-    if(dataTable.Rows.Count>0)
+    if (dataTable.Rows.Count > 0)
     {
-         foreach(DataRow row in dataTable.Rows)
-         {
-    <h1>@row["id"] @row["fullname"] @row["phone"]</h1>
-    <br />
-         }
-    }else
+        <table>
+            <tr>
+                <th>ردیف</th>
+                <th>نام و نام خانوادگی</th>
+                <th>موبایل</th>
+                <th>سن</th>
+                <th>آدرس</th>
+            </tr>
+            @foreach (DataRow row in dataTable.Rows)
+            {
+            <tr>
+                <td>@row["id"]</td>
+                <td>@row["FullName"]</td>
+                <td>@row["Mobile"]</td>
+                <td>@row["Age"]</td>
+                <td>@row["Address"]</td>
+            </tr>
+            }
+        </table>
+
+        <br />
+    }
+    else
     {
-    <h1>!متاسفانه داده ای جهت نمایش یافت نشد</h1>
+        <h1 style="text-align:center">!متاسفانه داده ای جهت نمایش یافت نشد</h1>
     }
 
-    myClass klm = new myClass();
+    MyClass myClass = new MyClass();
 
-   <h1>@klm.jkhjk</h1>
+   <h1 style="text-align:center">@myClass.jkhjk</h1>
 }

@@ -6,7 +6,7 @@
     DataTable dataTable = new DataTable();
 
     string connString = "Data Source=DESKTOP-90OC7A4\\SQLEXPRESS;Initial Catalog=Test_db;Integrated Security=true";
-    string query = "SELECT [id] ,[FullName] ,[Phone] FROM [Test_db].[dbo].[Contacts]";
+    string query = "SELECT [id] ,[FullName] ,[Mobile] ,[Age] ,[Address] FROM [Test_db].[dbo].[Employees]";
 
     using (SqlConnection conn = new SqlConnection(connString))
     {
@@ -21,24 +21,41 @@
             conn.Close();
             da.Dispose();
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             throw new Exception(ex.Message);
         }
     }
 
-    <h1>This is Koorosh Page.</h1>
+    <h1 style="text-align:center">صفحه تست SqlDataAdapter</h1>
     <br />
 
-    if(dataTable.Rows.Count>0)
+    if (dataTable.Rows.Count > 0)
     {
-         foreach(DataRow row in dataTable.Rows)
-         {
-    <h1>@row["id"] @row["fullname"] @row["phone"]</h1>
-    <br />
-        }
-    }else
+        <table>
+            <tr>
+                <th>ردیف</th>
+                <th>نام و نام خانوادگی</th>
+                <th>موبایل</th>
+                <th>سن</th>
+                <th>آدرس</th>
+            </tr>
+            @foreach (DataRow row in dataTable.Rows)
+            {
+            <tr>
+                <td>@row["id"]</td>
+                <td>@row["FullName"]</td>
+                <td>@row["Mobile"]</td>
+                <td>@row["Age"]</td>
+                <td>@row["Address"]</td>
+            </tr>
+            }
+        </table>
+
+        <br />
+    }
+    else
     {
-    <h1>!متاسفانه داده ای جهت نمایش یافت نشد</h1>
+        <h1 style="text-align:center">!متاسفانه داده ای جهت نمایش یافت نشد</h1>
     }
 }

@@ -1,7 +1,7 @@
 ﻿namespace Test_Project
 {
-    public class myClass
+    public class MyClass
     {
-        public string jkhjk = "jsgfjhdgfsdgfdsgjhfg";
+        public string jkhjk = "متن تست";
     }
 }
