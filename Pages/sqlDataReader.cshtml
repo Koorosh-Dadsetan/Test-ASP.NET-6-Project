@@ -1,7 +1,7 @@
 ﻿@page
-@model Test_Project.Pages.Koorosh2Model
+@model Test_Project.Pages.sqlDataReader
 @{
-    ViewData["Title"] = "Koorosh2";
+    ViewData["Title"] = "SqlDataReader";
 
     DataTable dataTable = new DataTable();
 
@@ -48,4 +48,9 @@
     {
         <h1>!متاسفانه داده ای جهت نمایش یافت نشد</h1>
     }
+
+    myClass klm = new myClass();
 }
+
+   <h1>@klm.jkhjk</h1>
+

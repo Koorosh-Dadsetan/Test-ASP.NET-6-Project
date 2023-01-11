@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Test_Project.Pages
 {
-    public class KooroshModel : PageModel
+    public class sqlDataAdapter : PageModel
     {
         public void OnGet()
         {
