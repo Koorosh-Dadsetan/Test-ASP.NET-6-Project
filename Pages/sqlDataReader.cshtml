@@ -3,6 +3,24 @@
 @{
     ViewData["Title"] = "SqlDataReader";
 
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: center;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8f6ff;
+        }
+    </style>
+
     DataTable dataTable = new DataTable();
 
 
@@ -48,13 +66,13 @@
             </tr>
             @foreach (DataRow row in dataTable.Rows)
             {
-            <tr>
-                <td>@row["id"]</td>
-                <td>@row["FullName"]</td>
-                <td>@row["Mobile"]</td>
-                <td>@row["Age"]</td>
-                <td>@row["Address"]</td>
-            </tr>
+                <tr>
+                    <td>@row["id"]</td>
+                    <td>@row["FullName"]</td>
+                    <td>@row["Mobile"]</td>
+                    <td>@row["Age"]</td>
+                    <td>@row["Address"]</td>
+                </tr>
             }
         </table>
 
@@ -67,5 +85,5 @@
 
     MyClass myClass = new MyClass();
 
-   <h1 style="text-align:center">@myClass.jkhjk</h1>
+    <h1 style="text-align:center">@myClass.jkhjk</h1>
 }

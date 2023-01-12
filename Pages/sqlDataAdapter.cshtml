@@ -3,6 +3,24 @@
 @{
     ViewData["Title"] = "SqlDataAdapter";
 
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: center;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8f6ff;
+        }
+    </style>
+
     DataTable dataTable = new DataTable();
 
     string connString = "Data Source=DESKTOP-90OC7A4\\SQLEXPRESS;Initial Catalog=Test_db;Integrated Security=true";
@@ -34,21 +52,21 @@
     {
         <table>
             <tr>
-                <th>ردیف</th>
-                <th>نام و نام خانوادگی</th>
-                <th>موبایل</th>
-                <th>سن</th>
-                <th>آدرس</th>
+                <th style="background-color: #6c7ae0; color: #fff;">ردیف</th>
+                <th style="background-color: #6c7ae0; color: #fff;">نام و نام خانوادگی</th>
+                <th style="background-color: #6c7ae0; color: #fff;">موبایل</th>
+                <th style="background-color: #6c7ae0; color: #fff;">سن</th>
+                <th style="background-color: #6c7ae0; color: #fff;">آدرس</th>
             </tr>
             @foreach (DataRow row in dataTable.Rows)
             {
-            <tr>
-                <td>@row["id"]</td>
-                <td>@row["FullName"]</td>
-                <td>@row["Mobile"]</td>
-                <td>@row["Age"]</td>
-                <td>@row["Address"]</td>
-            </tr>
+                <tr>
+                    <td>@row["id"]</td>
+                    <td>@row["FullName"]</td>
+                    <td>@row["Mobile"]</td>
+                    <td>@row["Age"]</td>
+                    <td>@row["Address"]</td>
+                </tr>
             }
         </table>
 
