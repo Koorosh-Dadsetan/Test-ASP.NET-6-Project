@@ -8,6 +8,12 @@
             font-family: arial, sans-serif;
             border-collapse: collapse;
             width: 100%;
+            box-shadow: 0 0 40px 0 rgba(0,0,0,.15);
+        }
+
+        th {
+            background-color: #6c7ae0;
+            color: #fff;
         }
 
         td, th {
@@ -52,11 +58,11 @@
     {
         <table>
             <tr>
-                <th style="background-color: #6c7ae0; color: #fff;">ردیف</th>
-                <th style="background-color: #6c7ae0; color: #fff;">نام و نام خانوادگی</th>
-                <th style="background-color: #6c7ae0; color: #fff;">موبایل</th>
-                <th style="background-color: #6c7ae0; color: #fff;">سن</th>
-                <th style="background-color: #6c7ae0; color: #fff;">آدرس</th>
+                <th>ردیف</th>
+                <th>نام و نام خانوادگی</th>
+                <th>موبایل</th>
+                <th>سن</th>
+                <th>آدرس</th>
             </tr>
             @foreach (DataRow row in dataTable.Rows)
             {
