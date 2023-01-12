@@ -6,7 +6,6 @@
     <style>
         table {
             font-family: arial, sans-serif;
-            border-collapse: collapse;
             width: 100%;
             box-shadow: 0 0 40px 0 rgba(0,0,0,.15);
         }
@@ -64,10 +63,10 @@
     {
         <table>
             <tr>
-                <th>ردیف</th>
+                <th style="padding:3px !important;">ردیف</th>
                 <th>نام و نام خانوادگی</th>
                 <th>موبایل</th>
-                <th>سن</th>
+                <th style="padding:12px !important;">سن</th>
                 <th>آدرس</th>
             </tr>
             @foreach (DataRow row in dataTable.Rows)

@@ -4,27 +4,26 @@
     ViewData["Title"] = "SqlDataAdapter";
 
     <style>
-        table {
-            font-family: arial, sans-serif;
-            border-collapse: collapse;
-            width: 100%;
-            box-shadow: 0 0 40px 0 rgba(0,0,0,.15);
-        }
+            table {
+                font-family: arial, sans-serif;
+                width: 100%;
+                box-shadow: 0 0 40px 0 rgba(0,0,0,.15);
+            }
 
-        th {
-            background-color: #6c7ae0;
-            color: #fff;
-        }
+            th {
+                background-color: #6c7ae0;
+                color: #fff;
+            }
 
-        td, th {
-            border: 1px solid #dddddd;
-            text-align: center;
-            padding: 8px;
-        }
+            td, th {
+                border: 1px solid #dddddd;
+                text-align: center;
+                padding: 8px;
+            }
 
-        tr:nth-child(even) {
-            background-color: #f8f6ff;
-        }
+            tr:nth-child(even) {
+                background-color: #f8f6ff;
+            }
     </style>
 
     DataTable dataTable = new DataTable();
@@ -56,30 +55,30 @@
 
     if (dataTable.Rows.Count > 0)
     {
-        <table>
-            <tr>
-                <th>ردیف</th>
-                <th>نام و نام خانوادگی</th>
-                <th>موبایل</th>
-                <th>سن</th>
-                <th>آدرس</th>
-            </tr>
-            @foreach (DataRow row in dataTable.Rows)
-            {
+    <table>
                 <tr>
-                    <td>@row["id"]</td>
-                    <td>@row["FullName"]</td>
-                    <td>@row["Mobile"]</td>
-                    <td>@row["Age"]</td>
-                    <td>@row["Address"]</td>
+                    <th style="padding:3px !important;">ردیف</th>
+                    <th>نام و نام خانوادگی</th>
+                    <th>موبایل</th>
+                    <th style="padding:12px !important;">سن</th>
+                    <th>آدرس</th>
                 </tr>
+                @foreach (DataRow row in dataTable.Rows)
+            {
+                    <tr>
+                        <td>@row["id"]</td>
+                        <td>@row["FullName"]</td>
+                        <td>@row["Mobile"]</td>
+                        <td>@row["Age"]</td>
+                        <td>@row["Address"]</td>
+                    </tr>
             }
-        </table>
+    </table>
 
-        <br />
+    <br />
     }
     else
     {
-        <h1 style="text-align:center">!متاسفانه داده ای جهت نمایش یافت نشد</h1>
+    <h1 style="text-align:center">!متاسفانه داده ای جهت نمایش یافت نشد</h1>
     }
 }
