@@ -36,8 +36,7 @@
         "SELECT [id] ,[FullName] ,[Mobile] ,[Age] ,[Address] FROM [Test_db].[dbo].[Employees]";
 
 
-    using (SqlConnection connection =
-        new SqlConnection(connectionString))
+    using (SqlConnection connection = new SqlConnection(connectionString))
     {
         SqlCommand command = new SqlCommand(queryString, connection);
 

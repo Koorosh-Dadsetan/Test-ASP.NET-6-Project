@@ -4,26 +4,49 @@
     ViewData["Title"] = "SqlDataAdapter";
 
     <style>
-            table {
-                font-family: arial, sans-serif;
-                width: 100%;
-                box-shadow: 0 0 40px 0 rgba(0,0,0,.15);
-            }
+        table {
+            font-family: arial, sans-serif;
+            width: 100%;
+            box-shadow: 0 0 40px 0 rgba(0,0,0,.15);
+        }
 
-            th {
-                background-color: #6c7ae0;
-                color: #fff;
-            }
+        th {
+            background-color: #6c7ae0;
+            color: #fff;
+        }
 
-            td, th {
-                border: 1px solid #dddddd;
-                text-align: center;
-                padding: 8px;
-            }
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: center;
+            padding: 8px;
+        }
 
-            tr:nth-child(even) {
-                background-color: #f8f6ff;
-            }
+        tr:nth-child(even) {
+            background-color: #f8f6ff;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            direction: ltr !important;
+        }
+
+        .pagination a {
+            color: black;
+            float: left;
+            padding: 8px 16px;
+            text-decoration: none;
+            transition: background-color .3s;
+        }
+
+        .pagination a.active {
+            background-color: dodgerblue;
+            color: white;
+        }
+
+        .pagination a:hover:not(.active) {
+            background-color: #ddd;
+        }
     </style>
 
     DataTable dataTable = new DataTable();
@@ -50,35 +73,47 @@
         }
     }
 
+
     <h1 style="text-align:center">صفحه تست SqlDataAdapter</h1>
     <br />
 
     if (dataTable.Rows.Count > 0)
     {
-    <table>
-                <tr>
-                    <th style="padding:3px !important;">ردیف</th>
-                    <th>نام و نام خانوادگی</th>
-                    <th>موبایل</th>
-                    <th style="padding:12px !important;">سن</th>
-                    <th>آدرس</th>
-                </tr>
-                @foreach (DataRow row in dataTable.Rows)
+        <table>
+            <tr>
+                <th style="padding:3px !important;">ردیف</th>
+                <th>نام و نام خانوادگی</th>
+                <th>موبایل</th>
+                <th style="padding:12px !important;">سن</th>
+                <th>آدرس</th>
+            </tr>
+            @foreach (DataRow row in dataTable.Rows)
             {
-                    <tr>
-                        <td>@row["id"]</td>
-                        <td>@row["FullName"]</td>
-                        <td>@row["Mobile"]</td>
-                        <td>@row["Age"]</td>
-                        <td>@row["Address"]</td>
-                    </tr>
+                <tr>
+                    <td>@row["id"]</td>
+                    <td>@row["FullName"]</td>
+                    <td>@row["Mobile"]</td>
+                    <td>@row["Age"]</td>
+                    <td>@row["Address"]</td>
+                </tr>
             }
-    </table>
+        </table>
 
-    <br />
+        <br />
+
+        <div class="pagination">
+            <a href="#">&laquo;</a>
+            <a href="#">1</a>
+            <a class="active" href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">4</a>
+            <a href="#">5</a>
+            <a href="#">6</a>
+            <a href="#">&raquo;</a>
+        </div>
     }
     else
     {
-    <h1 style="text-align:center">!متاسفانه داده ای جهت نمایش یافت نشد</h1>
+        <h1 style="text-align:center">!متاسفانه داده ای جهت نمایش یافت نشد</h1>
     }
 }
