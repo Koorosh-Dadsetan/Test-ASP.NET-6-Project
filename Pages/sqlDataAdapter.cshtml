@@ -1,6 +1,8 @@
 ﻿@page
 @model Test_Project.Pages.sqlDataAdapter
 @{
+    @addTagHelper *,LazZiya.TagHelpers
+
     ViewData["Title"] = "SqlDataAdapter";
 
     <style>
@@ -31,53 +33,29 @@
             direction: ltr !important;
         }
 
-        .pagination a {
-            color: black;
-            float: left;
-            padding: 8px 16px;
-            text-decoration: none;
-            transition: background-color .3s;
-        }
+            .pagination a {
+                color: black;
+                float: left;
+                padding: 8px 16px;
+                text-decoration: none;
+                transition: background-color .3s;
+            }
 
-        .pagination a.active {
-            background-color: dodgerblue;
-            color: white;
-        }
+                .pagination a.active {
+                    background-color: dodgerblue;
+                    color: white;
+                }
 
-        .pagination a:hover:not(.active) {
-            background-color: #ddd;
-        }
+                .pagination a:hover:not(.active) {
+                    background-color: #ddd;
+                }
     </style>
-
-    DataTable dataTable = new DataTable();
-
-    string connString = "Data Source=DESKTOP-90OC7A4\\SQLEXPRESS;Initial Catalog=Test_db;Integrated Security=true";
-    string query = "SELECT [id] ,[FullName] ,[Mobile] ,[Age] ,[Address] FROM [Test_db].[dbo].[Employees]";
-
-    using (SqlConnection conn = new SqlConnection(connString))
-    {
-        SqlCommand cmd = new SqlCommand(query, conn);
-        try
-        {
-            conn.Open();
-
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            da.Fill(dataTable);
-
-            conn.Close();
-            da.Dispose();
-        }
-        catch (Exception ex)
-        {
-            throw new Exception(ex.Message);
-        }
-    }
 
 
     <h1 style="text-align:center">صفحه تست SqlDataAdapter</h1>
     <br />
 
-    if (dataTable.Rows.Count > 0)
+    if (Model.TotalRecords > 0)
     {
         <table>
             <tr>
@@ -87,7 +65,7 @@
                 <th style="padding:12px !important;">سن</th>
                 <th>آدرس</th>
             </tr>
-            @foreach (DataRow row in dataTable.Rows)
+            @foreach (DataRow row in Model.Cultures)
             {
                 <tr>
                     <td>@row["id"]</td>
@@ -101,19 +79,14 @@
 
         <br />
 
-        <div class="pagination">
-            <a href="#">&laquo;</a>
-            <a href="#">1</a>
-            <a class="active" href="#">2</a>
-            <a href="#">3</a>
-            <a href="#">4</a>
-            <a href="#">5</a>
-            <a href="#">6</a>
-            <a href="#">&raquo;</a>
-        </div>
+        <paging total-records="Model.TotalRecords"
+        page-no="Model.PageNo"
+        page-size="Model.PageSize">
+        </paging>
     }
     else
     {
         <h1 style="text-align:center">!متاسفانه داده ای جهت نمایش یافت نشد</h1>
     }
+
 }

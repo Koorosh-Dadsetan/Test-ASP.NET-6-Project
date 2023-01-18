@@ -9,8 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="LazZiya.TagHelpers" Version="6.0.2" />
     <PackageReference Include="System.Data.Common" Version="4.3.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+    <PackageReference Include="System.Linq.Expressions" Version="4.3.0" />
+    <PackageReference Include="System.Linq.Queryable" Version="4.3.0" />
   </ItemGroup>
 
 </Project>

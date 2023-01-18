@@ -1,31 +1,17 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using System.Globalization;
 
-namespace Test_Project.Pages
+namespace Test_Project
 {
-    public class sqlDataAdapter : PageModel
+    public class GetDataEmployees
     {
         DataTable dataTable = new DataTable();
 
-        string connString =
+        public string connString =
             "Data Source=DESKTOP-90OC7A4\\SQLEXPRESS;Initial Catalog=Test_db;Integrated Security=true";
-        string query =
+        public string query =
             "SELECT id ,FullName,Mobile,Age,Address FROM [Test_db].[dbo].[Employees]";
 
-
-        [BindProperty]
-        public IEnumerable<DataRow> Cultures { get; set; }
-
-        [BindProperty]
-        public int TotalRecords { get; set; }
-
-        [BindProperty]
-        public int PageNo { get; set; }
-
-        [BindProperty]
-        public int PageSize { get; set; }
-
-        public void OnGet(int p = 1 ,int s = 5)
+        public IEnumerable<CultureInfo> myMethodhjg()
         {
             using (SqlConnection conn = new SqlConnection(connString))
             {
@@ -50,15 +36,8 @@ namespace Test_Project.Pages
             var results = from myRow in dataTable.AsEnumerable()
                           select myRow;
 
-         
-            Cultures = results
-                .Skip((p - 1) * s).Take(s);
+            return (IEnumerable<CultureInfo>)results;
+        }
 
-            TotalRecords = results.Count();
-
-            PageNo = p;
-
-            PageSize = s;
-        }   
     }
 }
