@@ -1,6 +1,8 @@
 ﻿@page
 @model Test_Project.Pages.sqlDataReader
 @{
+    @addTagHelper *,LazZiya.TagHelpers
+
     ViewData["Title"] = "SqlDataReader";
 
     <style>
@@ -24,41 +26,32 @@
         tr:nth-child(even) {
             background-color: #f8f6ff;
         }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            direction: ltr !important;
+        }
+
+            .pagination a {
+                color: black;
+            }
+
+                .pagination a.active {
+                    background-color: dodgerblue;
+                    color: white;
+                }
+
+                .pagination a:hover:not(.active) {
+                    background-color: #ddd;
+                }
     </style>
 
-    DataTable dataTable = new DataTable();
-
-
-    string connectionString =
-            "Data Source=DESKTOP-90OC7A4\\SQLEXPRESS;Initial Catalog=Test_db;Integrated Security=true";
-
-    string queryString =
-        "SELECT [id] ,[FullName] ,[Mobile] ,[Age] ,[Address] FROM [Test_db].[dbo].[Employees]";
-
-
-    using (SqlConnection connection = new SqlConnection(connectionString))
-    {
-        SqlCommand command = new SqlCommand(queryString, connection);
-
-        try
-        {
-            connection.Open();
-            SqlDataReader reader = command.ExecuteReader();
-
-            dataTable.Load(reader);
-
-            reader.Close();
-        }
-        catch (Exception ex)
-        {
-            throw new Exception(ex.Message);
-        }
-    }
 
     <h1 style="text-align:center">صفحه تست SqlDataReader</h1>
     <br />
 
-    if (dataTable.Rows.Count > 0)
+    if (Model.TotalRecords > 0)
     {
         <table>
             <tr>
@@ -68,7 +61,7 @@
                 <th style="padding:12px !important;">سن</th>
                 <th>آدرس</th>
             </tr>
-            @foreach (DataRow row in dataTable.Rows)
+            @foreach (DataRow row in Model.Cultures)
             {
                 <tr>
                     <td>@row["id"]</td>
@@ -81,6 +74,22 @@
         </table>
 
         <br />
+
+        if (Model.TotalRecords > Model.PageSize)
+        {
+            <paging total-records="Model.TotalRecords"
+        page-no="Model.PageNo"
+        page-size="Model.PageSize"
+        text-next=""
+        text-previous=""
+        sr-text-previous="&laquo;"
+        sr-text-next="&raquo;"
+        show-first-last="false"
+        show-page-size-nav="false"
+        max-displayed-pages="5"
+        class="pagination">
+            </paging>
+        }
     }
     else
     {

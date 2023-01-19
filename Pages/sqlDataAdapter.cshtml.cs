@@ -25,7 +25,7 @@ namespace Test_Project.Pages
         [BindProperty]
         public int PageSize { get; set; }
 
-        public void OnGet(int p = 1 ,int s = 5)
+        public void OnGet(int p = 1, int s = 5)
         {
             using (SqlConnection conn = new SqlConnection(connString))
             {
@@ -50,7 +50,7 @@ namespace Test_Project.Pages
             var results = from myRow in dataTable.AsEnumerable()
                           select myRow;
 
-         
+
             Cultures = results
                 .Skip((p - 1) * s).Take(s);
 
@@ -59,6 +59,6 @@ namespace Test_Project.Pages
             PageNo = p;
 
             PageSize = s;
-        }   
+        }
     }
 }

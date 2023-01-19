@@ -35,10 +35,6 @@
 
             .pagination a {
                 color: black;
-                float: left;
-                padding: 8px 16px;
-                text-decoration: none;
-                transition: background-color .3s;
             }
 
                 .pagination a.active {
@@ -79,10 +75,22 @@
 
         <br />
 
-        <paging total-records="Model.TotalRecords"
+        if (Model.TotalRecords > Model.PageSize)
+        {
+            <paging total-records="Model.TotalRecords"
         page-no="Model.PageNo"
-        page-size="Model.PageSize">
-        </paging>
+        page-size="Model.PageSize"
+        text-next=""
+        text-previous=""
+        sr-text-previous="&laquo;"
+        sr-text-next="&raquo;"
+        show-first-last="false"
+        show-page-size-nav="false"
+        max-displayed-pages="5"
+        class="pagination">
+            </paging>
+        }
+
     }
     else
     {
