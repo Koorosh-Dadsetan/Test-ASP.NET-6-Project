@@ -1,7 +1,8 @@
-﻿@page
+﻿@page "{handler?}"
 @model Test_Project.Pages.sqlDataAdapter
 @{
     @addTagHelper *,LazZiya.TagHelpers
+    @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
     ViewData["Title"] = "SqlDataAdapter";
 
@@ -51,7 +52,7 @@
     <h1 style="text-align:center">صفحه تست SqlDataAdapter</h1>
     <br />
 
-    if (Model.TotalRecords > 0)
+    if (Model.TotalRecords != null)
     {
         <table>
             <tr>
@@ -91,10 +92,19 @@
             </paging>
         }
 
+        <br />
+
+
     }
     else
     {
         <h1 style="text-align:center">!متاسفانه داده ای جهت نمایش یافت نشد</h1>
     }
+
+
+
+    <a asp-page="sqlDataAdapter" asp-page-handler="MyOnClick">Click Me</a>
+
+    <h1>@TempData["msg"]</h1>
 
 }
