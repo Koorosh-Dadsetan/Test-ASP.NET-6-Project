@@ -1,7 +1,6 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Syncfusion.XlsIO;
-
 
 namespace Test_Project.Pages
 {
@@ -60,12 +59,14 @@ namespace Test_Project.Pages
             TotalRecords = results.Count();
 
             PageNo = p;
+            TempData["p"] = p;
 
             PageSize = s;
+            TempData["s"] = s;
         }
 
 
-        public IActionResult OnGetMyOnClick(int p = 1, int s = 5)
+        public IActionResult OnGetExcelExport()
         {
             using (SqlConnection conn = new SqlConnection(connString))
             {
@@ -87,22 +88,6 @@ namespace Test_Project.Pages
                 }
             }
 
-            var results = from myRow in dataTable.AsEnumerable()
-                          select myRow;
-
-
-            Cultures = results
-                .Skip((p - 1) * s).Take(s);
-
-            TotalRecords = results.Count();
-
-            PageNo = p;
-
-            PageSize = s;
-
-
-
-
             using (ExcelEngine excelEngine = new ExcelEngine())
             {
                 IApplication application = excelEngine.Excel;
@@ -111,8 +96,6 @@ namespace Test_Project.Pages
                 //Create a new workbook
                 IWorkbook workbook = application.Workbooks.Create(1);
                 IWorksheet sheet = workbook.Worksheets[0];
-
-
 
                 //Import data from the data table with column header, at first row and first column, 
                 //and by its column type.
@@ -132,10 +115,9 @@ namespace Test_Project.Pages
                 fileStream.Dispose();
             }
 
-            TempData["msg"] = "Excel file downloaded sucesfully.";
+            TempData["Message"] = "فایل اکسل جدول فوق با موفقیت دانلود شد.";
 
-            return Redirect("https://localhost:7109/sqldataadapter");
-
+            return Redirect("https://localhost:7109/sqldataadapter?p="+ TempData["p"] + "&s="+ TempData["s"]);
         }
 
     }
