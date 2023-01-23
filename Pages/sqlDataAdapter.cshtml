@@ -64,11 +64,11 @@
             @foreach (DataRow row in Model.Cultures)
             {
                 <tr>
-                    <td>@row["id"]</td>
-                    <td>@row["FullName"]</td>
-                    <td>@row["Mobile"]</td>
-                    <td>@row["Age"]</td>
-                    <td>@row["Address"]</td>
+                    <td>@row["ردیف"]</td>
+                    <td>@row["نام و نام خانوادگی"]</td>
+                    <td>@row["موبایل"]</td>
+                    <td>@row["سن"]</td>
+                    <td>@row["آدرس"]</td>
                 </tr>
             }
         </table>
@@ -89,13 +89,13 @@
         max-displayed-pages="5"
         class="pagination">
             </paging>
+
+            <br />
         }
 
-        <br />
-
-        <a asp-page-handler="ExcelExport">دانلود فایل اکسل جدول</a>
-
-        <h1>@TempData["Message"]</h1>
+        <form method="post">
+            <input type="submit" value="ExportExcel" asp-page-handler="ExportExcel" />
+        </form>
     }
     else
     {

@@ -1,18 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Syncfusion.XlsIO;
+using ClosedXML.Excel;
+using System.Linq;
 
 namespace Test_Project.Pages
 {
     public class sqlDataAdapter : PageModel
     {
-        DataTable dataTable = new DataTable();
+        private DataTable dataTable = new DataTable("Employees Sheet");
 
-        string connString =
+        private string connString =
             "Data Source=DESKTOP-90OC7A4\\SQLEXPRESS;Initial Catalog=Test_db;Integrated Security=true";
-        string query =
-            "SELECT id ,FullName,Mobile,Age,Address FROM [Test_db].[dbo].[Employees]";
-
+        private string query =
+            "SELECT id as N'ردیف' ,FullName as N'نام و نام خانوادگی' ,Mobile as N'موبایل' ,Age as N'سن' ,Address as N'آدرس' FROM [Test_db].[dbo].[Employees]";
 
         [BindProperty]
         public IEnumerable<DataRow> Cultures { get; set; }
@@ -52,7 +52,6 @@ namespace Test_Project.Pages
             var results = from myRow in dataTable.AsEnumerable()
                           select myRow;
 
-
             Cultures = results
                 .Skip((p - 1) * s).Take(s);
 
@@ -66,7 +65,7 @@ namespace Test_Project.Pages
         }
 
 
-        public IActionResult OnGetExcelExport()
+        public FileResult OnPostExportExcel()
         {
             using (SqlConnection conn = new SqlConnection(connString))
             {
@@ -88,37 +87,30 @@ namespace Test_Project.Pages
                 }
             }
 
-            using (ExcelEngine excelEngine = new ExcelEngine())
+            using (XLWorkbook wb = new XLWorkbook { RightToLeft = true })
             {
-                IApplication application = excelEngine.Excel;
-                application.DefaultVersion = ExcelVersion.Excel2016;
+                var ws = wb.Worksheets.Add(dataTable);
 
-                //Create a new workbook
-                IWorkbook workbook = application.Workbooks.Create(1);
-                IWorksheet sheet = workbook.Worksheets[0];
+                var myCustomStyle = XLWorkbook.DefaultStyle;
+                myCustomStyle.Alignment.SetVertical(XLAlignmentVerticalValues.Center);
+                myCustomStyle.Alignment.SetHorizontal(XLAlignmentHorizontalValues.Center);
 
-                //Import data from the data table with column header, at first row and first column, 
-                //and by its column type.
-                sheet.ImportDataTable(dataTable, true, 1, 1, true);
+                ws.RangeUsed(XLCellsUsedOptions.AllContents).Style = myCustomStyle;
 
-                //Creating Excel table or list object and apply style to the table
-                IListObject table = sheet.ListObjects.Create("Employee_PersonalDetails", sheet.UsedRange);
+                ws.Column(1).AdjustToContents();
+                ws.Column(2).AdjustToContents();
+                ws.Column(3).AdjustToContents();
+                ws.Column(4).AdjustToContents();
+                ws.Column(5).AdjustToContents();
 
-                table.BuiltInTableStyle = TableBuiltInStyles.TableStyleMedium14;
-
-                //Autofit the columns
-                sheet.UsedRange.AutofitColumns();
-
-                //Save the file in the given path
-                var fileStream = new FileStream(@"E:\Output.xlsx", FileMode.Create);
-                workbook.SaveAs(fileStream);
-                fileStream.Dispose();
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    wb.SaveAs(stream);
+                    return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Employees.xlsx");
+                }
             }
-
-            TempData["Message"] = "فایل اکسل جدول فوق با موفقیت دانلود شد.";
-
-            return Redirect("https://localhost:7109/sqldataadapter?p="+ TempData["p"] + "&s="+ TempData["s"]);
         }
+
 
     }
 }
