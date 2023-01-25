@@ -14,7 +14,7 @@ namespace Test_Project.Pages
         private string queryString =
             "SELECT [id] ,[FullName] ,[Mobile] ,[Age] ,[Address] FROM [Test_db].[dbo].[Employees]";
 
-        public IEnumerable<DataRow> Cultures { get; set; }
+        public IEnumerable<DataRow>? Cultures { get; set; }
 
         public int TotalRecords { get; set; }
 

@@ -11,12 +11,8 @@
   <ItemGroup>
     <PackageReference Include="ClosedXML" Version="0.100.3" />
     <PackageReference Include="LazZiya.TagHelpers" Version="6.0.2" />
-    <PackageReference Include="Stimulsoft.Reports.Engine.NetCore" Version="2023.1.5" />
-    <PackageReference Include="Syncfusion.XlsIO.Net.Core" Version="20.4.0.44" />
-    <PackageReference Include="System.Data.Common" Version="4.3.0" />
+    <PackageReference Include="Select.HtmlToPdf.NetCore" Version="22.2.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
-    <PackageReference Include="System.Linq.Expressions" Version="4.3.0" />
-    <PackageReference Include="System.Linq.Queryable" Version="4.3.0" />
   </ItemGroup>
 
 </Project>
