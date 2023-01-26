@@ -27,6 +27,9 @@ namespace Test_Project.Pages
         [BindProperty]
         public int PageSize { get; set; }
 
+        [BindProperty]
+        public string DeleteId { get; set; }
+
 
         public void OnGet(int p = 1, int s = 5)
         {
@@ -164,6 +167,31 @@ namespace Test_Project.Pages
 
                 return File(stream.ToArray(), "application/pdf", "Employees.pdf");
             }
+        }
+
+
+        public IActionResult OnPostDelete(int DeleteId)
+        {
+            string query = "DELETE [Test_db].[dbo].[Employees] WHERE id=" + DeleteId;
+
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                SqlCommand cmd = new SqlCommand(query, conn);
+
+                try
+                {
+                    conn.Open();
+
+                    cmd.ExecuteNonQuery();
+
+                    conn.Close();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+            }
+            return Redirect("https://localhost:7109/sqldataadapter");
         }
 
 

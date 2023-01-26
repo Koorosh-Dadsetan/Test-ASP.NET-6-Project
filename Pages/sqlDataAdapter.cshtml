@@ -60,6 +60,7 @@
                 <th>موبایل</th>
                 <th style="padding:12px !important;">سن</th>
                 <th>آدرس</th>
+                <th></th>
             </tr>
             @foreach (DataRow row in Model.Cultures)
             {
@@ -69,6 +70,12 @@
                     <td>@row["موبایل"]</td>
                     <td>@row["سن"]</td>
                     <td>@row["آدرس"]</td>
+                    <td>
+                        <form method="post">
+                            <input type="submit" value="ویرایش" asp-page-handler="Edit" />
+                            <input type="submit" value="حذف" asp-page-handler="Delete" asp-route-DeleteId="@row["ردیف"]" />
+                        </form>
+                    </td>
                 </tr>
             }
         </table>
@@ -102,5 +109,8 @@
     {
         <h1 style="text-align:center">!متاسفانه داده ای جهت نمایش یافت نشد</h1>
     }
+
+
+
 
 }
