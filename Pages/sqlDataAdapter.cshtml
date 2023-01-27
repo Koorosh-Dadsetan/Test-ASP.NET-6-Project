@@ -53,6 +53,23 @@
 
     if (Model.TotalRecords > 0)
     {
+        if (TempData["EditButton"] != null)
+        {
+            <div style="display:flex; justify-content:center; position:absolute; z-index:1;">
+                <form method="post" style="width:80%; border:1px solid black; background:#f8f6ff;">
+                    <label style="width:45%; margin:2%;">نام و نام خانوادگی: <input style="width:100%;" type="text" name="EditFullname" value="@TempData["EditFullname"]" /></label>
+
+                    <label style="width:45%; margin:2%;">موبایل: <input style="width:100%;" type="text" name="EditMobile" value="@TempData["EditMobile"]" /></label>
+
+                    <label style="width:45%; margin:2%;">سن: <input style="width:100%;" type="number" name="EditAge" value="@TempData["EditAge"]" /></label>
+
+                    <label style="width:45%; margin:2%;">آدرس: <input style="width:100%;" type="text" name="EditAddress" value="@TempData["EditAddress"]" /></label>
+
+                    <input type="submit" value="ذخیره" asp-page-handler="EditSubmit" asp-route-EditId="@TempData["EditId"]" />
+                </form>
+            </div>
+        }
+
         <table>
             <tr>
                 <th style="padding:3px !important;">ردیف</th>
@@ -72,7 +89,7 @@
                     <td>@row["آدرس"]</td>
                     <td>
                         <form method="post">
-                            <input type="submit" value="ویرایش" asp-page-handler="Edit" />
+                            <input type="submit" value="ویرایش" asp-page-handler="Edit" asp-route-EditId="@row["ردیف"]" asp-route-EditFullname="@row["نام و نام خانوادگی"]" asp-route-EditMobile="@row["موبایل"]" asp-route-EditAge="@row["سن"]" asp-route-EditAddress="@row["آدرس"]" />
                             <input type="submit" value="حذف" asp-page-handler="Delete" asp-route-DeleteId="@row["ردیف"]" />
                         </form>
                     </td>
@@ -110,7 +127,6 @@
         <h1 style="text-align:center">!متاسفانه داده ای جهت نمایش یافت نشد</h1>
     }
 
-
-
+    
 
 }
