@@ -27,6 +27,18 @@ namespace Test_Project.Pages
         [BindProperty]
         public int PageSize { get; set; }
 
+        [BindProperty]
+        public string? EditFullname { get; set; }
+
+        [BindProperty]
+        public string? EditMobile { get; set; }
+
+        [BindProperty]
+        public int EditAge { get; set; }
+
+        [BindProperty]
+        public string? EditAddress { get; set; }
+
 
         public void OnGet(int p = 1, int s = 5)
         {
@@ -192,7 +204,7 @@ namespace Test_Project.Pages
             return Redirect(Request.Headers["Referer"].ToString());
         }
 
-        public IActionResult OnPostEdit(int EditId ,string EditFullname, string EditMobile, int EditAge, string EditAddress)
+        public IActionResult OnPostEdit(int EditId, string EditFullname, string EditMobile, int EditAge, string EditAddress)
         {
             TempData["EditButton"] = true;
             TempData["EditId"] = EditId;
@@ -207,11 +219,6 @@ namespace Test_Project.Pages
 
         public IActionResult OnPostEditSubmit(int EditId)
         {
-            var EditFullname = Request.Form["EditFullname"];
-            var EditMobile = Request.Form["EditMobile"];
-            var EditAge = Request.Form["EditAge"];
-            var EditAddress = Request.Form["EditAddress"];
-
             string query = "UPDATE [Test_db].[dbo].[Employees] SET FullName=N'" + EditFullname + "' ,Mobile='" + EditMobile + "' ,Age=" + EditAge + " ,Address=N'" + EditAddress + "' WHERE id=" + EditId;
 
             using (SqlConnection conn = new SqlConnection(connString))

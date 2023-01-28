@@ -57,13 +57,13 @@
         {
             <div style="display:flex; justify-content:center; position:absolute; z-index:1;">
                 <form method="post" style="width:80%; border:1px solid black; background:#f8f6ff;">
-                    <label style="width:45%; margin:2%;">نام و نام خانوادگی: <input style="width:100%;" type="text" name="EditFullname" value="@TempData["EditFullname"]" /></label>
+                    <label style="width:45%; margin:2%;">نام و نام خانوادگی: <input style="width:100%;" type="text" asp-for="EditFullname" value="@TempData["EditFullname"]" /></label>
 
-                    <label style="width:45%; margin:2%;">موبایل: <input style="width:100%;" type="text" name="EditMobile" value="@TempData["EditMobile"]" /></label>
+                    <label style="width:45%; margin:2%;">موبایل: <input style="width:100%;" type="text" asp-for="EditMobile" value="@TempData["EditMobile"]" /></label>
 
-                    <label style="width:45%; margin:2%;">سن: <input style="width:100%;" type="number" name="EditAge" value="@TempData["EditAge"]" /></label>
+                    <label style="width:45%; margin:2%;">سن: <input style="width:100%;" type="number" asp-for="EditAge" value="@TempData["EditAge"]" /></label>
 
-                    <label style="width:45%; margin:2%;">آدرس: <input style="width:100%;" type="text" name="EditAddress" value="@TempData["EditAddress"]" /></label>
+                    <label style="width:45%; margin:2%;">آدرس: <input style="width:100%;" type="text" asp-for="EditAddress" value="@TempData["EditAddress"]" /></label>
 
                     <input type="submit" value="ذخیره" asp-page-handler="EditSubmit" asp-route-EditId="@TempData["EditId"]" />
                 </form>
