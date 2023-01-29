@@ -261,7 +261,7 @@ namespace Test_Project.Pages
 
         public IActionResult OnPostCancel()
         {
-            return Redirect("https://localhost:7109/sqldataadapter");
+            return Redirect(Request.Headers["Referer"].ToString());
         }
 
 
