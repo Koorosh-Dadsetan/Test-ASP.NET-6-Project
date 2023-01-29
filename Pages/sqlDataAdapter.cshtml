@@ -58,14 +58,29 @@
             <div style="display:flex; justify-content:center; position:absolute; z-index:1;">
                 <form method="post" style="width:80%; border:1px solid black; background:#f8f6ff;">
                     <label style="width:45%; margin:2%;">نام و نام خانوادگی: <input style="width:100%;" type="text" asp-for="EditFullname" value="@TempData["EditFullname"]" /></label>
-
+                    <span asp-validation-for="EditFullname"></span>
                     <label style="width:45%; margin:2%;">موبایل: <input style="width:100%;" type="text" asp-for="EditMobile" value="@TempData["EditMobile"]" /></label>
-
+                    <span asp-validation-for="EditMobile"></span>
                     <label style="width:45%; margin:2%;">سن: <input style="width:100%;" type="number" asp-for="EditAge" value="@TempData["EditAge"]" /></label>
-
+                    <span asp-validation-for="EditAge"></span>
                     <label style="width:45%; margin:2%;">آدرس: <input style="width:100%;" type="text" asp-for="EditAddress" value="@TempData["EditAddress"]" /></label>
-
+                    <span asp-validation-for="EditAddress"></span>
                     <input type="submit" value="ذخیره" asp-page-handler="EditSubmit" asp-route-EditId="@TempData["EditId"]" />
+
+                    <input type="submit" value="انصراف" asp-page-handler="Cancel" />
+                </form>
+            </div>
+        }
+
+        if (TempData["DeleteButton"] != null)
+        {
+            <div style="display:flex; justify-content:center; position:absolute; z-index:1;">
+                <form method="post" style="width:80%; border:1px solid black; background:#f8f6ff;">
+                    <h5 style="width:95%; margin:2%;">آیا از حذف @TempData["DeleteFullName"] مطمئن هستید؟</h5>
+
+                    <input type="submit" value="حذف" asp-page-handler="DeleteSubmit" asp-route-DeleteId="@TempData["DeleteId"]" />
+
+                    <input type="submit" value="انصراف" asp-page-handler="Cancel" />
                 </form>
             </div>
         }
@@ -90,7 +105,7 @@
                     <td>
                         <form method="post">
                             <input type="submit" value="ویرایش" asp-page-handler="Edit" asp-route-EditId="@row["ردیف"]" asp-route-EditFullname="@row["نام و نام خانوادگی"]" asp-route-EditMobile="@row["موبایل"]" asp-route-EditAge="@row["سن"]" asp-route-EditAddress="@row["آدرس"]" />
-                            <input type="submit" value="حذف" asp-page-handler="Delete" asp-route-DeleteId="@row["ردیف"]" />
+                            <input type="submit" value="حذف" asp-page-handler="Delete" asp-route-DeleteId="@row["ردیف"]" asp-route-DeleteFullName="@row["نام و نام خانوادگی"]" />
                         </form>
                     </td>
                 </tr>
@@ -127,6 +142,11 @@
         <h1 style="text-align:center">!متاسفانه داده ای جهت نمایش یافت نشد</h1>
     }
 
-    
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+
 
 }

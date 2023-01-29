@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using ClosedXML.Excel;
 using System.Text;
 using SelectPdf;
+using System.ComponentModel.DataAnnotations;
 
 namespace Test_Project.Pages
 {
@@ -27,15 +28,23 @@ namespace Test_Project.Pages
         [BindProperty]
         public int PageSize { get; set; }
 
+        [Required(ErrorMessage = "پر کردن این فیلد الزامی می‌باشد")]
+        [MinLength(3, ErrorMessage = "حداقل 3 کاراکتر مجاز می‌باشد")]
+        [MaxLength(30, ErrorMessage = "حداکثر 30 کاراکتر مجاز می‌باشد")]
         [BindProperty]
         public string? EditFullname { get; set; }
 
+        [MinLength(11, ErrorMessage = "لطفا شماره موبایل را به صورت " + "0912xxxxxxx" + " و بطور صحیح وارد نمائید")]
+        [MaxLength(11, ErrorMessage = "لطفا شماره موبایل را به صورت " + "0912xxxxxxx" + " و بطور صحیح وارد نمائید")]
         [BindProperty]
         public string? EditMobile { get; set; }
 
+        [Required(AllowEmptyStrings = true, ErrorMessage = "پر کردن این فیلد الزامی می‌باشد (در صورت مقدار نداشتن عدد 0 قرار دهید)")]
+        [Range(0, 120, ErrorMessage = "لطفا سن را بطور صحیح وارد نمائید")]
         [BindProperty]
-        public int EditAge { get; set; }
+        public string? EditAge { get; set; }
 
+        [MaxLength(100, ErrorMessage = "حداکثر 100 کاراکتر مجاز می‌باشد")]
         [BindProperty]
         public string? EditAddress { get; set; }
 
@@ -178,8 +187,16 @@ namespace Test_Project.Pages
             }
         }
 
+        public IActionResult OnPostDelete(int DeleteId, string DeleteFullName)
+        {
+            TempData["DeleteButton"] = true;
+            TempData["DeleteId"] = DeleteId;
+            TempData["DeleteFullName"] = DeleteFullName;
 
-        public IActionResult OnPostDelete(int DeleteId)
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
+
+        public IActionResult OnPostDeleteSubmit(int DeleteId)
         {
             string query = "DELETE [Test_db].[dbo].[Employees] WHERE id=" + DeleteId;
 
@@ -239,6 +256,11 @@ namespace Test_Project.Pages
                 }
             }
             //return previous url page
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
+
+        public IActionResult OnPostCancel()
+        {
             return Redirect(Request.Headers["Referer"].ToString());
         }
 
