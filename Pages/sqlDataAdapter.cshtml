@@ -65,9 +65,10 @@
                     <span asp-validation-for="EditAge"></span>
                     <label style="width:45%; margin:2%;">آدرس: <input style="width:100%;" type="text" asp-for="EditAddress" value="@TempData["EditAddress"]" /></label>
                     <span asp-validation-for="EditAddress"></span>
-                    <input type="submit" value="ذخیره" asp-page-handler="EditSubmit" asp-route-EditId="@TempData["EditId"]" />
 
-                    <input type="submit" value="انصراف" asp-page-handler="Cancel" />
+                    <input class="btn btn-primary" type="submit" value="ذخیره" asp-page-handler="EditSubmit" asp-route-EditId="@TempData["EditId"]" />
+
+                    <a class="btn btn-secondary" asp-page-handler="Cancel">انصراف</a>
                 </form>
             </div>
         }
