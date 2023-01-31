@@ -1,0 +1,42 @@
+﻿@page
+@model Test_Project.Pages.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>جزئیات</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            نام ونام خانوادگی
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Employee.FullName)
+        </dd>
+        <dt class="col-sm-2">
+            موبایل
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Employee.Mobile)
+        </dd>
+        <dt class="col-sm-2">
+            سن
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Employee.Age)
+        </dd>
+        <dt class="col-sm-2">
+            آدرس
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Employee.Address)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a class="btn btn-primary" asp-page="./Edit" asp-route-id="@Model.Employee?.id">ویرایش</a>
+    <a class="btn btn-secondary" asp-page="./EFCore">بازگشت</a>
+</div>

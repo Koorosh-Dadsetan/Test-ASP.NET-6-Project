@@ -1,0 +1,55 @@
+﻿@page
+@model Test_Project.Pages.EFCoreModel
+
+@{
+    ViewData["Title"] = "EFCore";
+}
+
+<h1>EFCore</h1>
+
+<p>
+    <a asp-page="Create">افزودن</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                نام و نام خانوادگی
+            </th>
+            <th>
+                موبایل
+            </th>
+            <th>
+                سن
+            </th>
+            <th>
+                آدرس
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Employee)
+        {
+            <tr>
+                <td>
+                    @item.FullName
+                </td>
+                <td>
+                    @item.Mobile
+                </td>
+                <td>
+                    @item.Age
+                </td>
+                <td>
+                    @item.Address
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.id">ویرایش</a> |
+                    <a asp-page="./Details" asp-route-id="@item.id">جزئیات</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.id">حذف</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

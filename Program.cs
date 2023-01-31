@@ -1,10 +1,16 @@
 global using System.Data;
 global using System.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using Test_Project;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+builder.Services.AddControllers();
+builder.Services.AddDbContext<DBCtx>(option =>
+    option.UseSqlServer(builder.Configuration.GetConnectionString("MyConn")));
 
 var app = builder.Build();
 
