@@ -28,6 +28,9 @@ namespace Test_Project.Pages
         [BindProperty]
         public int PageSize { get; set; }
 
+        [BindProperty(SupportsGet = true)]
+        public string? SearchBox { get; set; }
+
         [Required(ErrorMessage = "پر کردن این فیلد الزامی می‌باشد")]
         [MinLength(3, ErrorMessage = "حداقل 3 کاراکتر مجاز می‌باشد")]
         [MaxLength(30, ErrorMessage = "حداکثر 30 کاراکتر مجاز می‌باشد")]
@@ -48,42 +51,80 @@ namespace Test_Project.Pages
         [BindProperty]
         public string? EditAddress { get; set; }
 
-
         public void OnGet(int p = 1, int s = 5)
         {
-            using (SqlConnection conn = new SqlConnection(connString))
+            if (string.IsNullOrEmpty(SearchBox))
             {
-                SqlCommand cmd = new SqlCommand(query, conn);
-
-                try
+                using (SqlConnection conn = new SqlConnection(connString))
                 {
-                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(query, conn);
 
-                    SqlDataAdapter da = new SqlDataAdapter(cmd);
-                    da.Fill(dataTable);
+                    try
+                    {
+                        conn.Open();
 
-                    conn.Close();
-                    da.Dispose();
+                        SqlDataAdapter da = new SqlDataAdapter(cmd);
+                        da.Fill(dataTable);
+
+                        conn.Close();
+                        da.Dispose();
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception(ex.Message);
+                    }
                 }
-                catch (Exception ex)
-                {
-                    throw new Exception(ex.Message);
-                }
+
+                var results = from myRow in dataTable.AsEnumerable()
+                              select myRow;
+
+                Cultures = results
+                    .Skip((p - 1) * s).Take(s);
+
+                TotalRecords = results.Count();
+
+                PageNo = p;
+
+                PageSize = s;
             }
+            else if (SearchBox != null)
+            {
+                string query =
+            "SELECT id as N'ردیف' ,FullName as N'نام و نام خانوادگی' ,Mobile as N'موبایل' ,Age as N'سن' ,Address as N'آدرس' FROM [Test_db].[dbo].[Employees] WHERE FullName LIKE N'%" + SearchBox + "%'";
 
-            var results = from myRow in dataTable.AsEnumerable()
-                          select myRow;
+                using (SqlConnection conn = new SqlConnection(connString))
+                {
+                    SqlCommand cmd = new SqlCommand(query, conn);
 
-            Cultures = results
-                .Skip((p - 1) * s).Take(s);
+                    try
+                    {
+                        conn.Open();
 
-            TotalRecords = results.Count();
+                        SqlDataAdapter da = new SqlDataAdapter(cmd);
+                        da.Fill(dataTable);
 
-            PageNo = p;
+                        conn.Close();
+                        da.Dispose();
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception(ex.Message);
+                    }
+                }
 
-            PageSize = s;
+                var results = from myRow in dataTable.AsEnumerable()
+                              select myRow;
+
+                Cultures = results
+                    .Skip((p - 1) * s).Take(s);
+
+                TotalRecords = results.Count();
+
+                PageNo = p;
+
+                PageSize = s;
+            }
         }
-
 
         public FileResult OnPostExportExcel()
         {
@@ -165,7 +206,7 @@ namespace Test_Project.Pages
 
             sb.Append("</table> </body> </html>");
 
-            var htmlString = "<html><head></head><body><h1>Koorosh Dadsetan</h1></body></html>";
+            string htmlString = "<html><body><h1>Koorosh Dadsetan</h1></body></html>";
 
             using (MemoryStream stream = new MemoryStream())
             {

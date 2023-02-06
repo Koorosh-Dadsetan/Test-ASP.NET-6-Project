@@ -7,9 +7,9 @@ namespace Test_Project.Pages
 {
     public class EditModel : PageModel
     {
-        private readonly Test_Project.DBCtx _context;
+        private readonly DBCtx _context;
 
-        public EditModel(Test_Project.DBCtx context)
+        public EditModel(DBCtx context)
         {
             _context = context;
         }

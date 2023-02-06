@@ -47,12 +47,22 @@
                 }
     </style>
 
+    <form>
+        <input asp-for="SearchBox" />
+        <input type="submit" value="جستوجو" />
+    </form>
 
     <h1 style="text-align:center">صفحه تست SqlDataAdapter</h1>
     <br />
 
-    if (Model.TotalRecords > 0)
-    {
+    //if (Model.TotalRecords > 0)
+    //{
+        <form method="post">
+            <input type="submit" value="دانلود فایل Excel" asp-page-handler="ExportExcel" />
+            <input type="submit" value="دانلود فایل PDF" asp-page-handler="ExportPDF" />
+        </form>
+        <br />
+
         if (TempData["EditButton"] != null)
         {
             <div style="display:flex; justify-content:center; position:absolute; z-index:1;">
@@ -129,19 +139,12 @@
         max-displayed-pages="5"
         class="pagination">
             </paging>
-
-            <br />
         }
-
-        <form method="post">
-            <input type="submit" value="Export Excel" asp-page-handler="ExportExcel" />
-            <input type="submit" value="Export PDF" asp-page-handler="ExportPDF" />
-        </form>
-    }
-    else
-    {
-        <h1 style="text-align:center">!متاسفانه داده ای جهت نمایش یافت نشد</h1>
-    }
+    //}
+    //else
+    //{
+    //    <h1 style="text-align:center">!متاسفانه داده ای جهت نمایش یافت نشد</h1>
+    //}
 
     @section Scripts {
         @{
